@@ -21,4 +21,4 @@ def baja_gasto():
                 return
         print("ID no encontrado")
     else:
-        print("Entrada inválida")
+        print("Entrada invalida")
