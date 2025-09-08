@@ -1,153 +1,51 @@
 import login
 from validaciones import validar_int
+from altas import alta_gasto
+from bajas import baja_gasto
 
-
-#Programa principal
 login = login()
 
-
-    
-
 while login == True:
-    print("\n-Menu")
+    print("-Menu")
     print("_"*50)
     print("""
     1 - Gastos
     2 - Categorias
     3 - Presupuestos
     4 - Ahorros
-    5- Carga rapida matrizes
+    5 - Carga rapida matrices
     0 - Salir
     """)
-    opcion = input("seleccionar opcion: ")
+    opcion = input("Seleccionar opcion: ")
     opcion = validar_int(opcion)
-    while opcion < 0 or opcion > 10 or opcion == False:
-        print("numero invalido")
-        opcion = input("seleccionar opcion: ")
+    while opcion == False or opcion < 0 or opcion > 10:
+        print("Numero invalido")
+        opcion = input("Seleccionar opcion: ")
         opcion = validar_int(opcion)
-    print("\n")
+
     if opcion == 1:
-        print("Gastos")
+        print("=== Gastos ===")
+        print("1 - Alta de gasto")
+        print("2 - Baja de gasto")
+        print("0 - Volver")
+        subopcion = input("Seleccione opcion: ")
+        subopcion = validar_int(subopcion)
+
+        if subopcion == 1:
+            alta_gasto()
+        elif subopcion == 2:
+            baja_gasto()
+
     elif opcion == 2:
-        print("Categorias")
+        print("Categorias (en desarrollo)")
     elif opcion == 3:
-        print("Presupuesto")
+        print("Presupuesto (en desarrollo)")
     elif opcion == 4:
-        print("Informe")
+        print("Informe (en desarrollo)")
     elif opcion == 5:
-        print("Carga Rapida")
-        print("Cargando datos de prueba...\n")
+        print("Carga Rápida")
+        print("Cargando datos de prueba")
         print("Valores de prueba agregados")
     elif opcion == 0:
         login = False
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-"""def print_matrix(matrix):
-    for row in matrix:
-        for col in row:
-            print(f"{col:<20}", end="")
-        print()
-    print("\n")
-
-def get_categorias():
-    categorias = [
-        ["id_cat", "categoria", "subcategoria", "Descripcion"],
-        [1, "Interbanking", "Transferencias a bancos", "Paso de banco hipotecario a BBVA"],
-        [2, "Hogar", "Servicios", "Pago de internet"],
-        [3, "Ocio", "Restaurantes", "Cena en restaurante"],
-        [4, "Salud", "Gimnasio", "Suplementos GYM"],
-        [5, "Transporte", "Pases", "Recarga Sube"],
-        [6, "Otros", "Adicciones", "Gramo de Flores"]
-    ]
-    return categorias
-
-def create_movimientos():
-    return [["id_mov", "fecha", "monto", "Tipo_mov", "categoria", "Descripcion", "Cuenta_origen", "Cuenta_destino"]]
-
-def add_expense(movimientos, categorias):
-    id_mov = len(movimientos)
-
-    fecha = input("Ingrese la fecha (MM/DD/YYYY): ")
-    monto = input("Ingrese el monto: ")
-    tipo_mov = input("Ingrese el tipo de movimiento (Gasto/Transferencia): ")
-
-    print("\nSeleccione la categoría:")
-    for cat in categorias[1:]:
-        print(f"{cat[0]} - {cat[1]} ({cat[2]})")
-
-    cat_id = int(input("Ingrese el número de categoría: "))
-
-    categoria = "Desconocido"
-    for cat in categorias[1:]:
-        if cat[0] == cat_id:
-            categoria = cat[1]
-
-    descripcion = input("Ingrese la descripción: ")
-    cuenta_origen = input("Ingrese la cuenta origen (o '-' si no aplica): ")
-    cuenta_destino = input("Ingrese la cuenta destino (o '-' si no aplica): ")
-    movimientos.append([id_mov, fecha, monto, tipo_mov, categoria, descripcion, cuenta_origen, cuenta_destino])
-
-    print("\n Movimiento agregado correctamente!\n")
-
-def main():
-    categorias = get_categorias()
-    movimientos = create_movimientos()
-    add_expense(movimientos, categorias)
-    add_expense(movimientos, categorias)
-    print("\n=== Movimientos registrados ===")
-    print_matrix(movimientos)
-
-main()
-"""
+        print("Saliendo")
