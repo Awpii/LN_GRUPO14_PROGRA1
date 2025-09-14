@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # consulta.py
 from matriz import Gastos
 
@@ -6,10 +7,34 @@ def _mostrar_linea(g):
     print(f"{gid:>3} | {fecha:<10}  | {monto:>7} | {tipo:<8} | {cat:<16} | {desc}")
 
 def listar_todos():
+=======
+import re
+from validaciones import validar_int
+from matriz import Gastos
+
+def _mostrar_linea(g):
+    # esperado: (id, fecha, monto, tipo, categoria, desc, cuenta_origen, cuenta_destino)
+    gid = g[0]
+    fecha = g[1]
+    monto = g[2]
+    tipo = g[3]
+    cat = g[4]
+    desc = g[5]
+    print(f"{gid:>3} | {fecha:<10}  | {monto:>7} | {tipo:<8} | {cat:<16} | {desc}")
+
+def listar_todos():
+    """
+    Muestra todos los gastos con un formato de tabla simple.
+    """
+>>>>>>> feeb1ff61af8cb52f1a15a90958d8829bee85afb
     print("\n=== Consulta: listar todos ===")
     if not Gastos:
         print("No hay gastos cargados.")
         return
+<<<<<<< HEAD
+=======
+
+>>>>>>> feeb1ff61af8cb52f1a15a90958d8829bee85afb
     print("-"*80)
     print("ID  | Fecha       | Monto   | Tipo      | Categoria         | Descripción")
     print("-"*80)
@@ -19,16 +44,31 @@ def listar_todos():
     print(f"Cantidad: {len(Gastos)}")
 
 def detalle_por_id():
+<<<<<<< HEAD
+=======
+    """
+    Pide un ID y muestra todos los campos del gasto si existe.
+    """
+>>>>>>> feeb1ff61af8cb52f1a15a90958d8829bee85afb
     print("\n=== Consulta: detalle por ID ===")
     if not Gastos:
         print("No hay gastos cargados.")
         return
+<<<<<<< HEAD
     while True:
         txt = input("Ingrese ID: ").strip()
         try:
             buscado = int(txt); break
         except:
             print("ID inválido. Debe ser un número entero.")
+=======
+
+    txt = input("Ingrese ID: ").strip()
+    while not re.match(r"^\d+$", txt):
+        print("ID inválido.")
+        txt = input("Ingrese ID: ").strip()
+    buscado = int(txt)
+>>>>>>> feeb1ff61af8cb52f1a15a90958d8829bee85afb
 
     encontrado = None
     for g in Gastos:
@@ -54,6 +94,12 @@ def detalle_por_id():
     print("-"*40)
 
 def total_general():
+<<<<<<< HEAD
+=======
+    """
+    Suma todos los montos y muestra el total.
+    """
+>>>>>>> feeb1ff61af8cb52f1a15a90958d8829bee85afb
     print("\n=== Consulta: total general ===")
     total = 0
     for g in Gastos:
@@ -61,10 +107,20 @@ def total_general():
     print(f"Total de gastos: ${total}")
 
 def totales_por_categoria():
+<<<<<<< HEAD
+=======
+    """
+    Suma de montos agrupada por categoría, mostrando de mayor a menor.
+    """
+>>>>>>> feeb1ff61af8cb52f1a15a90958d8829bee85afb
     print("\n=== Consulta: totales por categoría ===")
     if not Gastos:
         print("No hay gastos cargados.")
         return
+<<<<<<< HEAD
+=======
+
+>>>>>>> feeb1ff61af8cb52f1a15a90958d8829bee85afb
     acum = {}  # {categoria: total}
     for g in Gastos:
         cat = g[4]
@@ -72,7 +128,14 @@ def totales_por_categoria():
         if cat not in acum:
             acum[cat] = 0
         acum[cat] += monto
+<<<<<<< HEAD
     orden = sorted(acum.items(), key=lambda x: x[1], reverse=True)
+=======
+
+    # ordenar por total desc
+    orden = sorted(acum.items(), key=lambda x: x[1], reverse=True)
+
+>>>>>>> feeb1ff61af8cb52f1a15a90958d8829bee85afb
     print("-"*40)
     print("Categoria           | Total")
     print("-"*40)
@@ -81,6 +144,12 @@ def totales_por_categoria():
     print("-"*40)
 
 def resumen_por_tipo():
+<<<<<<< HEAD
+=======
+    """
+    Total por 'Fijo' y 'Variable'.
+    """
+>>>>>>> feeb1ff61af8cb52f1a15a90958d8829bee85afb
     print("\n=== Consulta: resumen por tipo ===")
     fijo = 0
     variable = 0
@@ -89,6 +158,10 @@ def resumen_por_tipo():
             fijo += g[2]
         elif g[3] == "Variable":
             variable += g[2]
+<<<<<<< HEAD
+=======
+
+>>>>>>> feeb1ff61af8cb52f1a15a90958d8829bee85afb
     print("-"*30)
     print(f"Fijo:     ${fijo}")
     print(f"Variable: ${variable}")
@@ -96,9 +169,18 @@ def resumen_por_tipo():
     print("-"*30)
 
 # ---------------------------------------
+<<<<<<< HEAD
 # Menú local de consulta
 # ---------------------------------------
 def menu_consultas():
+=======
+# Menú local de consulta (opcional)
+# ---------------------------------------
+def menu_consultas():
+    """
+    Menú simple para encadenar consultas desde el programa principal.
+    """
+>>>>>>> feeb1ff61af8cb52f1a15a90958d8829bee85afb
     while True:
         print("""
 === CONSULTAS ===
@@ -109,12 +191,19 @@ def menu_consultas():
 5 - Resumen por tipo (Fijo/Variable)
 0 - Volver
 """)
+<<<<<<< HEAD
         while True:
             txt = input("Seleccione opción: ").strip()
             try:
                 op = int(txt); break
             except:
                 print("Entrada inválida. Debe ser un número entero.")
+=======
+        op = validar_int(input("Seleccione opción: "))
+        if op is False or op < 0 or op > 5:
+            print("Opción inválida.")
+            continue
+>>>>>>> feeb1ff61af8cb52f1a15a90958d8829bee85afb
 
         if op == 1:
             listar_todos()
@@ -128,5 +217,8 @@ def menu_consultas():
             resumen_por_tipo()
         elif op == 0:
             break
+<<<<<<< HEAD
         else:
             print("Opción inválida.")
+=======
+>>>>>>> feeb1ff61af8cb52f1a15a90958d8829bee85afb

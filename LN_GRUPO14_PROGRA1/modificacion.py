@@ -1,10 +1,16 @@
+<<<<<<< HEAD
 # modificacion.py
+=======
+import re
+from validaciones import validar_int
+>>>>>>> feeb1ff61af8cb52f1a15a90958d8829bee85afb
 from matriz import Gastos, Categorias
 
 # Estructura esperada de cada gasto:
 # (id, fecha, monto, tipo, categoria, descripcion, cuenta_origen, cuenta_destino)
 
 # ---------------------------------------
+<<<<<<< HEAD
 # Helpers generales (sin 'validaciones' ni 're')
 # ---------------------------------------
 def _es_fecha_valida_ddmmaaaa(txt):
@@ -22,6 +28,12 @@ def _es_fecha_valida_ddmmaaaa(txt):
     return (len(d) == 2 and d.isdigit()
             and len(m) == 2 and m.isdigit()
             and len(a) == 4 and a.isdigit())
+=======
+# Helpers generales
+# ---------------------------------------
+def _es_fecha_valida_ddmmaaaa(txt):
+    return bool(re.match(r"^\d{2}/\d{2}/\d{4}$", txt.strip()))
+>>>>>>> feeb1ff61af8cb52f1a15a90958d8829bee85afb
 
 def _leer_fecha(mensaje="Nueva fecha (DD/MM/AAAA): "):
     f = input(mensaje).strip()
@@ -46,6 +58,7 @@ def _leer_id_existente():
     if not Gastos:
         print("No hay gastos cargados.")
         return None
+<<<<<<< HEAD
     while True:
         texto = input("Ingrese ID de gasto: ").strip()
         try:
@@ -53,6 +66,13 @@ def _leer_id_existente():
             break
         except:
             print("ID inválido. Debe ser un número entero.")
+=======
+    texto = input("Ingrese ID de gasto: ").strip()
+    while not re.match(r"^\d+$", texto):
+        print("ID inválido. Debe ser un número entero.")
+        texto = input("Ingrese ID de gasto: ").strip()
+    gid = int(texto)
+>>>>>>> feeb1ff61af8cb52f1a15a90958d8829bee85afb
     idx = _buscar_indice_por_id(gid)
     if idx == -1:
         print(f"No existe gasto con ID {gid}.")
@@ -63,6 +83,7 @@ def _seleccionar_tipo():
     print("\nTipo de gasto:")
     print("1 - Fijo")
     print("2 - Variable")
+<<<<<<< HEAD
     while True:
         txt = input("Seleccionar tipo (1-2): ").strip()
         try:
@@ -73,6 +94,13 @@ def _seleccionar_tipo():
                 print("Opción inválida. Use 1 o 2.")
         except:
             print("Entrada inválida. Debe ser un número entero.")
+=======
+    op = validar_int(input("Seleccionar tipo (1-2): "))
+    while op is False or op not in (1, 2):
+        print("Opción inválida. Use 1 o 2.")
+        op = validar_int(input("Seleccionar tipo (1-2): "))
+    return "Fijo" if op == 1 else "Variable"
+>>>>>>> feeb1ff61af8cb52f1a15a90958d8829bee85afb
 
 def _armar_dic_categorias():
     """
@@ -100,6 +128,7 @@ def _seleccionar_categoria():
         print(f"{cid} - {dic[cid]}")
     print("0 - Sin categoria")
 
+<<<<<<< HEAD
     while True:
         op = input("Ingrese número de categoría: ").strip()
         try:
@@ -112,6 +141,18 @@ def _seleccionar_categoria():
         return "Sin categoria"
     if num in dic:
         return dic[num]
+=======
+    op = input("Ingrese número de categoría: ").strip()
+    while not re.match(r"^\d+$", op):
+        print("Opción inválida. Debe ser un número.")
+        op = input("Ingrese número de categoría: ").strip()
+
+    op = int(op)
+    if op == 0:
+        return "Sin categoria"
+    if op in dic:
+        return dic[op]
+>>>>>>> feeb1ff61af8cb52f1a15a90958d8829bee85afb
 
     print("Categoría inexistente. Se mantiene la actual.")
     return None  # indica no cambiar
@@ -127,6 +168,7 @@ def modificar_monto_por_id():
     g = Gastos[idx]
     _mostrar_gasto(g)
 
+<<<<<<< HEAD
     while True:
         txt = input("Nuevo monto (entero): ").strip()
         try:
@@ -134,6 +176,12 @@ def modificar_monto_por_id():
             break
         except:
             print("Monto inválido. Debe ser un entero.")
+=======
+    nuevo = validar_int(input("Nuevo monto (entero): "))
+    while nuevo is False:
+        print("Monto inválido. Debe ser un entero.")
+        nuevo = validar_int(input("Nuevo monto (entero): "))
+>>>>>>> feeb1ff61af8cb52f1a15a90958d8829bee85afb
 
     # reemplazar tupla completa
     Gastos[idx] = (g[0], g[1], nuevo, g[3], g[4], g[5], g[6], g[7])
@@ -212,7 +260,11 @@ def modificar_cuentas_por_id():
     _mostrar_gasto(Gastos[idx])
 
 # ---------------------------------------
+<<<<<<< HEAD
 # Menú local de modificación (sin validaciones.py)
+=======
+# Menú local de modificación
+>>>>>>> feeb1ff61af8cb52f1a15a90958d8829bee85afb
 # ---------------------------------------
 def menu_modificaciones():
     while True:
@@ -226,6 +278,7 @@ def menu_modificaciones():
 6 - Cuentas (origen/destino)
 0 - Volver
 """)
+<<<<<<< HEAD
         # leer opción solo con int() y try/except
         while True:
             txt = input("Seleccione opción: ").strip()
@@ -236,6 +289,10 @@ def menu_modificaciones():
                 print("Entrada inválida. Debe ser un número entero.")
 
         if op < 0 or op > 6:
+=======
+        op = validar_int(input("Seleccione opción: "))
+        if op is False or op < 0 or op > 6:
+>>>>>>> feeb1ff61af8cb52f1a15a90958d8829bee85afb
             print("Opción inválida.")
             continue
 
