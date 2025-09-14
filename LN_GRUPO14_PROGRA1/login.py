@@ -1,10 +1,6 @@
-matrizLogin = [["julian","pedro","mara","carla"], [213,5346,6933,5004]]
-
+matrizLogin = [["julian","pedro","mara","carla"], ["213","5346","6933","5004"]]
 
 def login():
-    """Funcion para loguear al usuario
-    Devuelve True si el login es exitoso
-    Devuelve False si el login es incorrecto"""
     intentos = 0  
     exito = False
     while intentos < 3 and exito == False:

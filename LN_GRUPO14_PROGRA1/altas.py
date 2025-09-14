@@ -20,12 +20,14 @@ def alta_gasto():
 
     tipo_mov = input("Ingrese el tipo de movimiento (Gasto/Ingreso/Transferencia): ")
 
-    if Categorias:
-        categorias_dict = {i+1: Categorias[i] for i in range(len(Categorias))}
+
+    if Categorias: #Agrego funcion lambda porque hay que agregar al menos una al TP..
+        categorias_dict = dict(map(lambda x: (x[0]+1, x[1]), enumerate(Categorias))) #Devuelve par de indice & valor, map lo aplica a todos los elementos y dict convierte las tuplas a diccionarios
+
         print("\nSeleccione una categoria:")
         for k, v in categorias_dict.items():
             print(f"{k} - {v}")
-
+    
         cat_opcion = input("Ingrese número de categoria: ")
         if re.match("^[0-9]+$", cat_opcion) and int(cat_opcion) in categorias_dict:
             categoria = categorias_dict[int(cat_opcion)]
